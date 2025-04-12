@@ -20,3 +20,8 @@
     height: 75px;
     object-fit: contain;
 }
+.wave{
+    height: 150px;
+    width: 100%;
+    background-color: black;
+}
