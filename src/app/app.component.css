@@ -4,3 +4,19 @@
     background-color: var(--background-color);
     color: var(--text-color);
 }
+.logo {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: fit-content;
+    height: fit-content;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo img{
+    height: 75px;
+    object-fit: contain;
+}
