@@ -3,6 +3,8 @@
     height: 100vh;
     background-color: var(--background-color);
     color: var(--text-color);
+    display: flex;
+    flex-direction: column;
 }
 .logo {
     position: absolute;
@@ -24,4 +26,7 @@
     height: 150px;
     width: 100%;
     background-color: black;
+}
+.deck{
+    flex-grow: 1;
 }
