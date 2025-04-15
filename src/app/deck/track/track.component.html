@@ -1,1 +1,17 @@
-<p>track works!</p>
+<div class="track">
+    <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'A'">
+        <div class="speed-slider"></div>
+        <div class="music-disc"></div>
+    </div>
+    <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'B'">
+        <div class="music-disc"></div>
+        <div class="speed-slider"></div>
+    </div>
+    <button (click)="play()">Pusti</button>
+    <button (click)="load()">Ucitaj</button>
+    <button (click)="pause()">Pauza</button>
+    <p *ngIf="isLoaded == true">Ucitano</p>
+    <div class="controls">
+        <div *ngFor="let x of [0,1,2,3,4,5,6,7]">{{ x }}</div>
+    </div>
+</div>
