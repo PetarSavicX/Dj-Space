@@ -2,6 +2,12 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { AudioService } from '../../services/audio.service';
 
+interface Control{
+  value: string,
+  controlFunc: Function,
+  active: boolean | null 
+}
+
 @Component({
   selector: 'app-track',
   standalone: true,
@@ -11,6 +17,16 @@ import { AudioService } from '../../services/audio.service';
 })
 export class TrackComponent implements OnInit{
   @Input() trackLabel!: "A" | "B";
+  loopValues = ['1/2', '1/4', '1/8', '1/16', '1/32', '1/64']
+  controls : Control[] = [
+    {value: 'play', controlFunc: () => this.play(), active: false},
+    {value: 'pause', controlFunc: () => this.pause(), active: false},
+    ...this.loopValues.map((value, index) => ({
+      value: value,
+      controlFunc: () => this.loop(value),
+      active: false,
+    }))
+  ];
   audioNo1: string = "assets/audio/beli-free-phd.mp3";
   audioNo2: string = "assets/audio/beli-free-blingbling.mp3";
   isLoaded: boolean = false;
@@ -18,6 +34,7 @@ export class TrackComponent implements OnInit{
   constructor(private audio: AudioService) {}
 
   ngOnInit(): void {
+    this.load();
   }
   async load(){
     this.isLoaded = false;
@@ -42,9 +59,24 @@ export class TrackComponent implements OnInit{
 
   play(){
     this.audio.play(this.trackLabel);
+    this.controls.find(cont => cont.value == 'play')!.active = true;
+    this.controls.find(cont => cont.value == 'pause')!.active = false;
+    console.table(this.controls);
   }
 
   pause(){
     this.audio.pause(this.trackLabel);
+    this.controls.find(cont => cont.value == 'pause')!.active = true;
+    this.controls.find(cont => cont.value == 'play')!.active = false;
+    console.table(this.controls);
+
+  }
+
+  loop(value: string) {
+    this.controls.map(cont => {
+      if(cont.value != 'play' && cont.value != 'pause')
+      cont.active = false;
+    })
+    this.controls.find(cont => cont.value == value)!.active = true;
   }
 }
