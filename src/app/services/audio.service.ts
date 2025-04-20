@@ -71,4 +71,9 @@ export class AudioService {
 
     track.sourceNode?.stop();
   }
+
+  volumeChange(trackId: string, value: number){
+    const track = this.tracks[trackId];
+    track.gainNode.gain.value = value;
+  }
 }

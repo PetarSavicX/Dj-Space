@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TrackComponent } from './track/track.component';
+import { AudioService } from '../services/audio.service';
 
 @Component({
   selector: 'app-deck',
@@ -9,5 +10,11 @@ import { TrackComponent } from './track/track.component';
   styleUrl: './deck.component.css'
 })
 export class DeckComponent {
+  
+  constructor(private audio: AudioService){  }
+
+  onVolume(trackId: 'A' | 'B', value: number){
+    this.audio.volumeChange(trackId, value/100);
+  }
 
 }
