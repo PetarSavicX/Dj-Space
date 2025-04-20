@@ -1,0 +1,19 @@
+<div class="track">
+    <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'A'">
+        <div class="speed-slider"></div>
+        <div class="music-disc"></div>
+    </div>
+    <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'B'">
+        <div class="music-disc"></div>
+        <div class="speed-slider"></div>
+    </div>
+    <div class="controls">
+        <ng-container *ngFor="let control of controls">
+            <div class="control-btn"  (click)="control.controlFunc()">
+                <div [ngClass]="{'control-active': control.active == true}">
+                    {{ control.value }}
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
