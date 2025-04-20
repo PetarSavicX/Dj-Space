@@ -27,8 +27,8 @@ export class TrackComponent implements OnInit{
       active: false,
     }))
   ];
-  audioNo1: string = "assets/audio/beli-free-phd.mp3";
-  audioNo2: string = "assets/audio/beli-free-blingbling.mp3";
+  audioNo1: string = "assets/audio/nuncake-stajl-smoke.mp3";
+  audioNo2: string = "assets/audio/stepski-vuk-smoke.mp3";
   isLoaded: boolean = false;
 
   constructor(private audio: AudioService) {}
