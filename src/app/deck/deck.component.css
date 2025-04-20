@@ -22,5 +22,37 @@
 .audio-control{
     width: 100%;
     height: 50%;
-    background-color: brown;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.volume-wrapper{
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-slider{
+    height: 90%;
+    width: 10px;
+    background-color: black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.volume-slider .head{
+    position: absolute;
+    left: 50%;
+    height: 20px;
+    width: 50px;
+    background-color: gray;
+    border-radius: 5px;
+    transform: translate(-50%);
+    cursor: grab;
+}
+.volume-slider .head:active{
+    cursor: grabbing;
 }

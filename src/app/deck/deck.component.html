@@ -5,8 +5,21 @@
     <div class="middle-wrapper">
         <div class="fx"></div>
         <div class="audio-control">
-            <input #volumeA type="range" min="0" max="100" step="1" value="100" (input)="onVolume('A', volumeA.valueAsNumber)">
-            <input #volumeB type="range" min="0" max="100" step="1" value="100" (input)="onVolume('B', volumeB.valueAsNumber)">
+            <div class="volume-wrapper">
+                <div class="volume-slider">
+                    <div class="head"></div>
+                    <div class="trail"></div>
+                </div>
+            </div>
+            
+            <div class="volume-wrapper">
+                <div class="volume-slider">
+                    <div class="head"></div>
+                    <div class="trail"></div>
+                </div>
+            </div>
+            <input class="d-none" #volumeA type="range" min="0" max="100" step="1" value="100" (input)="onVolume('A', volumeA.valueAsNumber)">
+            <input class="d-none" #volumeB type="range" min="0" max="100" step="1" value="100" (input)="onVolume('B', volumeB.valueAsNumber)">
         </div>
     </div>
     <div class="track-wrapper">
