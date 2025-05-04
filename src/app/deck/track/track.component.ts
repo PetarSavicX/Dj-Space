@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AudioService } from '../../services/audio.service';
 
 interface Control{
@@ -78,5 +78,36 @@ export class TrackComponent implements OnInit{
       cont.active = false;
     })
     this.controls.find(cont => cont.value == value)!.active = true;
+  }
+
+  controlClick(controlFunc: Function){
+    if(this.isLoaded) controlFunc();
+    else console.log('UI: track not loaded');
+  }
+
+  onDrag(event: DragEvent){
+    event.preventDefault()
+    event.stopPropagation();
+    console.log('dragged');
+  }
+
+  onDrop(event: DragEvent){
+    event.preventDefault();
+    console.log('droped');
+    const file = event.dataTransfer?.files[0];
+    if(file) this.handleAudioFile(file);
+  }
+
+  onFileSelected(event: Event){
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if(file) this.handleAudioFile(file);
+
+  }
+
+  async handleAudioFile(file: File){
+    this.isLoaded = false;
+    await this.audio.loadTrackByFile(this.trackLabel, file);
+    this.isLoaded = true;
   }
 }

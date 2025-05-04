@@ -1,15 +1,30 @@
 <div class="track">
     <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'A'">
         <div class="speed-slider"></div>
-        <div class="music-disc"></div>
+        <div class="music-disc" (dragover)="onDrag($event)" (drop)="onDrop($event)">
+            <button class="add add-right" (click)="fileInput.click()">
+                <div>+</div>
+            </button>
+            <div class="line" *ngFor="let i of [1,2,3,4,5,6,7]" [style.transform]="'scale(' + (1 - i * 0.1) + ')'">
+                <div class="main-line" *ngIf="i == 7"></div>
+            </div>
+        </div>
     </div>
     <div class="w-100 d-flex justify-content-evenly align-items-center" *ngIf="trackLabel == 'B'">
-        <div class="music-disc"></div>
+        <div class="music-disc" (dragover)="onDrag($event)" (drop)="onDrop($event)">
+            <button class="add add-left" (click)="fileInput.click()">
+                <div>+</div>
+            </button>
+            <div class="line" *ngFor="let i of [1,2,3,4,5,6,7]" [style.transform]="'scale(' + (1 - i * 0.1) + ')'">
+                <div class="main-line" *ngIf="i == 7"></div>
+            </div>
+        </div>
         <div class="speed-slider"></div>
     </div>
+    <input hidden type="file" accept="audio/*" #fileInput (change)="onFileSelected($event)">
     <div class="controls">
         <ng-container *ngFor="let control of controls">
-            <div class="control-btn"  (click)="control.controlFunc()">
+            <div class="control-btn" [ngClass]="{'control-disabled': !isLoaded}" (click)="controlClick(control.controlFunc)">
                 <div [ngClass]="{'control-active': control.active == true}">
                     {{ control.value }}
                 </div>

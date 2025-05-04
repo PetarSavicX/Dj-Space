@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FileHandlerService } from './file-handler.service';
 
 interface TrackData {
   buffer: AudioBuffer | null;
@@ -15,11 +16,29 @@ export class AudioService {
   private audioContext: AudioContext = new AudioContext();
   private tracks: { [trackId: string]: TrackData} = {}
 
-  constructor() { }
+  constructor(private fileHandler: FileHandlerService) { }
 
   async loadTrackByUrl(trackId: string, url: string): Promise<void> {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
+    const buffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+    if(!this.tracks[trackId]){
+      const gainNode = this.audioContext.createGain();
+      gainNode.connect(this.audioContext.destination)
+      this.tracks[trackId] = {
+        buffer: buffer,
+        sourceNode: null,
+        gainNode: gainNode,
+        startTime: null,
+        pauseOffset: null
+      }
+    }
+    else this.tracks[trackId].buffer = buffer;
+  }
+
+  async loadTrackByFile(trackId: string, file: File){
+    const arrayBuffer = await this.fileHandler.loadAudioFile(file);
     const buffer = await this.audioContext.decodeAudioData(arrayBuffer);
 
     if(!this.tracks[trackId]){
